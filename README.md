@@ -42,12 +42,18 @@ bitwarden:
 
 ```bash
 CGO_LDFLAGS="-lm" go run main.go
+
+# Or specify config path
+CGO_LDFLAGS="-lm" go run main.go -config /path/to/config.yaml
+
+# Or via environment variable
+CONFIG_PATH=/path/to/config.yaml CGO_LDFLAGS="-lm" go run main.go
 ```
 
 Or build first:
 ```bash
 CGO_LDFLAGS="-lm" go build -o akeyless-to-bitwarden
-./akeyless-to-bitwarden
+./akeyless-to-bitwarden -config config.yaml
 ```
 
 ### Docker

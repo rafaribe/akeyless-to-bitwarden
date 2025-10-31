@@ -4,8 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"flag"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 	"time"
 
@@ -17,10 +19,20 @@ import (
 func main() {
 	ctx := context.Background()
 
+	// Parse command line flags
+	configPath := flag.String("config", "", "Path to config file")
+	flag.Parse()
+
 	// Load configuration
-	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
+	if *configPath != "" {
+		viper.SetConfigFile(*configPath)
+	} else if envPath := os.Getenv("CONFIG_PATH"); envPath != "" {
+		viper.SetConfigFile(envPath)
+	} else {
+		viper.SetConfigName("config")
+		viper.SetConfigType("yaml")
+		viper.AddConfigPath(".")
+	}
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
