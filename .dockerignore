@@ -1,0 +1,6 @@
+.git
+.gitignore
+.vscode
+config.yaml
+README.md
+__debug_bin*

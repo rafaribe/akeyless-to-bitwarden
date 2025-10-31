@@ -1,0 +1,6 @@
+services:
+  akeyless-sync:
+    build: .
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+    restart: unless-stopped

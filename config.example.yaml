@@ -1,0 +1,11 @@
+akeyless:
+  url: https://api.akeyless.io
+  access_id: your-access-id
+  access_key: your-access-key
+
+bitwarden:
+  api_url: https://api.bitwarden.com
+  identity_url: https://identity.bitwarden.com
+  access_token: your-access-token
+  org_id: your-org-id
+  project_id: your-project-id
