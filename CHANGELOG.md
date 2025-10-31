@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/rafaribe/akeyless-to-bitwarden/compare/v1.1.0...v1.2.0) (2025-10-31)
+
+
+### Features
+
+* update Dockerfile to use distroless base image ([81c2f35](https://github.com/rafaribe/akeyless-to-bitwarden/commit/81c2f35d64bbfb2f91ad67020811551fef379967))
+
 # [1.1.0](https://github.com/rafaribe/akeyless-to-bitwarden/compare/v1.0.0...v1.1.0) (2025-10-31)
 
 
