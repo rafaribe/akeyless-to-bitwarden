@@ -28,6 +28,8 @@ func (s *Syncer) Sync(ctx context.Context) error {
 		return fmt.Errorf("failed to list secrets: %w", err)
 	}
 
+	fmt.Printf("Found %d secrets in Akeyless\n", len(paths))
+
 	existing, err := s.bitwarden.GetExistingSecrets()
 	if err != nil {
 		return fmt.Errorf("failed to list Bitwarden secrets: %w", err)

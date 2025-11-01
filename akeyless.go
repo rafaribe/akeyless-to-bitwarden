@@ -42,6 +42,7 @@ func (c *AkeylessClient) ListSecrets(ctx context.Context) ([]string, error) {
 }
 
 func (c *AkeylessClient) listSecretsRecursive(ctx context.Context, path string) ([]string, error) {
+	log.Printf("Listing path: %s", path)
 	listBody := akeyless.ListItems{
 		Token: &c.token,
 		Path:  akeyless.PtrString(path),
@@ -60,10 +61,16 @@ func (c *AkeylessClient) listSecretsRecursive(ctx context.Context, path string) 
 	for _, item := range listOut.GetItems() {
 		itemPath := item.GetItemName()
 		itemType := item.GetItemType()
+		log.Printf("Found: %s (type: %s)", itemPath, itemType)
 
-		if itemType == "static-secret" {
+		if itemType == "STATIC_SECRET" || itemType == "static-secret" {
 			paths = append(paths, itemPath)
-		} else if itemType == "folder" {
+			// Also try to list inside this path in case it has nested secrets
+			subPaths, err := c.listSecretsRecursive(ctx, itemPath)
+			if err == nil && len(subPaths) > 0 {
+				paths = append(paths, subPaths...)
+			}
+		} else if itemType == "FOLDER" || itemType == "folder" || itemType == "item" {
 			subPaths, err := c.listSecretsRecursive(ctx, itemPath)
 			if err != nil {
 				log.Printf("Failed to list folder %s: %v", itemPath, err)
