@@ -1,6 +1,16 @@
 # Akeyless to Bitwarden Secrets Manager Migration Tool
 
-Migrate all static secrets from Akeyless vault to Bitwarden Secrets Manager.
+Migrate and sync all static secrets from Akeyless vault to Bitwarden Secrets Manager.
+
+## Features
+
+- **Recursive Secret Discovery** - Automatically traverses the entire Akeyless folder structure to find all nested secrets
+- **Flat Secret Structure** - Creates individual Bitwarden secrets with full path names (e.g., `/hass/ssh` → `hass/ssh`)
+- **Smart Sync** - Creates new secrets or updates existing ones based on current state
+- **Sync Tracking** - Adds timestamp notes to track when secrets were last synced
+- **Rate Limit Handling** - Automatically retries with backoff when hitting API rate limits
+- **Error Resilience** - Failed migrations are logged but don't stop the entire sync process
+- **Clean Architecture** - Modular codebase following SOLID principles for easy maintenance and testing
 
 ## Prerequisites
 
@@ -68,14 +78,6 @@ Or with docker-compose:
 docker-compose up
 ```
 
-The tool will:
-1. Authenticate with Akeyless and Bitwarden
-2. List all static secrets from Akeyless
-3. Compare with existing Bitwarden secrets
-4. Create new secrets or update existing ones
-5. Group nested paths into JSON objects
-6. Add sync timestamp to notes
-
 ## Running as a Cron Job
 
 To keep secrets in sync, run the tool periodically:
@@ -85,9 +87,33 @@ To keep secrets in sync, run the tool periodically:
 0 * * * * cd /path/to/akeyless-to-bitwarden && docker-compose up
 ```
 
+## How It Works
+
+1. Authenticates with both Akeyless and Bitwarden
+2. Recursively discovers all static secrets in Akeyless (including nested paths)
+3. Lists existing secrets in the target Bitwarden project
+4. For each Akeyless secret:
+   - Creates a new Bitwarden secret if it doesn't exist
+   - Updates the existing Bitwarden secret if it already exists
+5. Adds sync timestamp to secret notes: `Synced from Akeyless @ <timestamp>`
+
+## Project Structure
+
+```
+.
+├── main.go          # Application entry point
+├── config.go        # Configuration loading
+├── akeyless.go      # Akeyless client wrapper
+├── bitwarden.go     # Bitwarden client wrapper
+├── syncer.go        # Sync orchestration logic
+├── config.yaml      # Configuration file (not in git)
+└── Dockerfile       # Container image definition
+```
+
 ## Notes
 
 - Only static secrets are migrated
 - Secrets with non-string values are skipped
-- Failed migrations are logged but don't stop the process
-- Existing secrets in Bitwarden may cause conflicts
+- Nested secrets are created as flat keys (e.g., `/hass/ssh` becomes `hass/ssh`)
+- Sync timestamps overwrite previous notes on each run
+- Rate limiting is handled automatically with 60-second retry delays
