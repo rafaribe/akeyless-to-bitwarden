@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/rafaribe/akeyless-to-bitwarden/compare/v1.2.0...v1.3.0) (2025-11-01)
+
+
+### Features
+
+* enhance logging in Akeyless client and syncer for better visibility ([bdc9842](https://github.com/rafaribe/akeyless-to-bitwarden/commit/bdc98424e49445fd28ad5d91667c4cc28f25b5a6))
+* implement Akeyless and Bitwarden client integration with sync functionality ([4ee1cdd](https://github.com/rafaribe/akeyless-to-bitwarden/commit/4ee1cdd3e14718c7711d355ac7175ec74ce2ef84))
+
 # [1.2.0](https://github.com/rafaribe/akeyless-to-bitwarden/compare/v1.1.0...v1.2.0) (2025-10-31)
 
 
