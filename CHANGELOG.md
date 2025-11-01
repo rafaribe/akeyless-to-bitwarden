@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/rafaribe/akeyless-to-bitwarden/compare/v1.3.0...v1.4.0) (2025-11-01)
+
+
+### Features
+
+* simplify secret update note handling in syncSecret function ([668237a](https://github.com/rafaribe/akeyless-to-bitwarden/commit/668237a9f1e1515c139e6b88ce462c667e4acbec))
+
 # [1.3.0](https://github.com/rafaribe/akeyless-to-bitwarden/compare/v1.2.0...v1.3.0) (2025-11-01)
 
 
