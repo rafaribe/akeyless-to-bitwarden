@@ -57,16 +57,7 @@ func (s *Syncer) syncSecret(ctx context.Context, path string, existing map[strin
 	key := strings.Trim(path, "/")
 
 	if secret, exists := existing[key]; exists {
-		fullSecret, err := s.bitwarden.GetSecret(secret.ID)
-		if err != nil {
-			return fmt.Errorf("failed to get secret details: %w", err)
-		}
-		note := fullSecret.Note
-		if note == "" {
-			note = fmt.Sprintf("Synced from Akeyless @ %s", timestamp)
-		} else {
-			note = fmt.Sprintf("%s | Modified @ %s", note, timestamp)
-		}
+		note := fmt.Sprintf("Synced from Akeyless @ %s", timestamp)
 		if err := s.bitwarden.UpdateSecret(secret.ID, key, value, note); err != nil {
 			return fmt.Errorf("update failed: %w", err)
 		}
