@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/rafaribe/akeyless-to-bitwarden/compare/v1.4.0...v1.5.0) (2025-11-01)
+
+
+### Features
+
+* update README to clarify migration and sync process, add project structure details ([4347f79](https://github.com/rafaribe/akeyless-to-bitwarden/commit/4347f7918c446bb37ad9e05b6ff309548cea786f))
+
 # [1.4.0](https://github.com/rafaribe/akeyless-to-bitwarden/compare/v1.3.0...v1.4.0) (2025-11-01)
 
 
